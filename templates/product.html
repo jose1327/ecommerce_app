@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+    {{product.desc | truncatewords:155}}
+{% endblock %}
+{% block title %}
+     {{product.name}}-CLICK N SHOP
+{% endblock %}
+{% block content %}
+<div>
+    <div>
+        <p><a href="{% url 'ecommerceapp:allProdCat' %}">Home</a> | <a href="{{ product.category.get_url }}"></a>{{product.name}}</p>
+    </div>
+    <div>
+        <br>
+        <div>
+            <div>
+                <img src="{{product.image.url}}" alt="{{product.name}}">
+            </div>
+        </div>
+        <div>
+            <div>
+                <h1>{{product.name}}</h1>
+                <p>₹{{product.price}}</p>
+                <p>{{product.desc}}</p>
+                {% if product.stock <= 0 %}
+                   <p><b> Out of stock </b></p>
+                {% else %}
+                <a class=" btn btn-secondary" href="{% url 'cart:add_cart' product.id %}">Add To Cart</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
